@@ -9,13 +9,6 @@ from dotenv import load_dotenv # Import dotenv to load .env file
 load_dotenv()
 
 # --- Configuration and Initialization ---
-
-# Retrieve AWS region from environment variables
-REGION_NAME = os.getenv('AWS_REGION')
-if not REGION_NAME:
-    logging.error("AWS region (AWS_REGION) not found in environment variables or .env file.")
-    sys.exit(1)
-
 # Configure logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -23,6 +16,13 @@ logging.basicConfig(level=logging.INFO,
                         logging.FileHandler("rekognition_app.log"),
                         logging.StreamHandler()
                     ])
+
+# Retrieve AWS region from environment variables
+REGION_NAME = os.getenv('AWS_REGION')
+if not REGION_NAME:
+    logging.error("AWS region (AWS_REGION) not found in environment variables or .env file.")
+    sys.exit(1)
+
 
 def initialize_rekognition():
     """Initializes and returns the AWS Rekognition client.
